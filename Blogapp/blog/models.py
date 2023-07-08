@@ -1,9 +1,15 @@
 from django.db import models
+from django.db.models.query import QuerySet
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.utils import timezone
 from slugify import slugify
 # Create your models here.
+
+class PublishedManager(models.Manager):     
+    # custom Manager class Post.published.get() can be used to get published posts
+    def get_queryset(self) -> QuerySet:
+        return super(PublishedManager,self).get_queryset().filter(status = 'published')
 
 
 class Post(models.Model):
@@ -20,6 +26,9 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10,choices=STATUS_CHOICES, default='draft')
+    published = PublishedManager() #custom manager
+    objects = models.Manager() #the default manager
+    
     
 
     def save(self, *args, **kwargs):
