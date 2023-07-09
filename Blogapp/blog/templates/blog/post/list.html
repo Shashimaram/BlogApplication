@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+<h1>Shashi Dher reddy marram </h1>
+{% endblock title %}
+
+{% block Content %}
+    
+    {% for p in post  %}
+      <!-- {{ p.title|linebreaks }} -->
+      <a href="{{ p.get_absolute_url}}">{{ p.title|linebreaks }}</a>
+
+        {{ p.body|truncatewords:20 }}
+
+    {% endfor %}
+    {% include "blog/post/pagination.html" with page=post %}
+{% endblock Content %}
