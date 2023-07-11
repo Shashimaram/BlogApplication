@@ -7,16 +7,27 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="sidebar">
+        <h2>My Blog app</h2>
+    </div>
 
-    {% block title %}
-      
-    {% endblock title %}
+    {% block title %}{% endblock title %}
     <div id="content">
         {% block Content %}
         {% endblock Content %}
     </div>
-    <div id="sidebar">
-        <h2>My Blog app</h2>
+
+    <div class="comments">
+        {% block CommentsBlock %}
+          
+        {% endblock CommentsBlock %}
+    </div>
+
+
+    <div class="commentform">
+        {% block comment_form %}
+          
+        {% endblock comment_form %}
     </div>
 
 </body>

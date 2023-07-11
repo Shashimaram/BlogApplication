@@ -6,3 +6,39 @@
         {{ post.body }} {{ post.author }}
     </div>
 {% endblock title %}
+
+{% block CommentsBlock %}
+
+    {% with comments.count as total_comments  %}
+        {{ total_comments }} comments {{ total_comments|pluralize }}
+    {% endwith %}
+  
+{% endblock CommentsBlock %}
+
+
+{% for comment in comments  %}
+    <div class="info">
+    <p>
+        Comment {{ forloop.counter }} by {{ comment.name }}
+        {{ comment.created }}
+    </p>
+    {{ comment.body | linebreaks }}
+    </div>
+
+    {% empty %}
+
+    there are no comments
+{% endfor %}
+
+
+{% block comment_form %}
+  {% if new_comments %}
+    <h3>Your comment has been added</h3>
+    {% else %}
+    <form action="." method = "POST">
+        {{ comment_form.as_p }}
+        {% csrf_token %}
+        <input type ="button" value="add comment">
+    </form>
+  {% endif %}
+{% endblock comment_form %}

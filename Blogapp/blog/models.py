@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from slugify import slugify
 from django.urls import reverse
+from django.db import transaction as _
 # Create your models here.
 
 class PublishedManager(models.Manager):     
@@ -48,7 +49,22 @@ class Post(models.Model):
                                                 self.slug])
     
     
+class Comments(models.Model): # comments model 
+    #  each post can contain multiple comments
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments') # one to many relationship
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    body = models.TextField()
+    created= models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
     
+    # class Meta:
+    #     # db_table = 'Post_Comments'
+    #     # managed = True
+    #     ordering = ('created',)
+    def __str__(self) -> str:
+        return 'Comments by {} on {}'.format(self.name, self.post)
     
     
     

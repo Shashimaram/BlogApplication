@@ -1,0 +1,15 @@
+from django import forms
+from .models import Comments
+
+
+class EmailPostForm(forms.Form):
+    name = forms.CharField(max_length=25)
+    email = forms.EmailField()
+    to  = forms.EmailField( required=True)
+    comments = forms.CharField( max_length=50, required=False,widget=forms.Textarea)
+
+class Comment_Form(forms.ModelForm):
+    
+    class Meta:
+        model = Comments
+        fields = ('name', 'email','body')

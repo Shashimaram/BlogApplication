@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post,Comments
 
 class PostAdmin(admin.ModelAdmin):
     # Customize the admin interface for the Post model if needed
@@ -12,3 +12,11 @@ class PostAdmin(admin.ModelAdmin):
     ordering = ('-publish', 'status')
 
 admin.site.register(Post, PostAdmin)
+
+
+class CommentsAdmin(admin.ModelAdmin):
+    list_display = ('name','email', 'post','created', 'active')
+    list_filter = ('created', 'active','updated')
+    search_fields = ('name', 'email', 'body')
+
+admin.site.register(Comments,CommentsAdmin)
