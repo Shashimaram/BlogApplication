@@ -8,37 +8,33 @@
 {% endblock title %}
 
 {% block CommentsBlock %}
-
-    {% with comments.count as total_comments  %}
-        {{ total_comments }} comments {{ total_comments|pluralize }}
+    {% with comments.count as total_comments %}
+        {{ total_comments }} comment{{ total_comments|pluralize }}
     {% endwith %}
-  
+
+    {% for comment in comments %}
+        <div class="info">
+            <p>
+                Comment {{ forloop.counter }} by {{ comment.name | linebreaks }}
+                        {{ comment.created }}
+            </p>
+            {{ comment.body | linebreaks }}
+        </div>
+    {% empty %}
+        There are no comments
+    {% endfor %}
+
 {% endblock CommentsBlock %}
 
 
-{% for comment in comments  %}
-    <div class="info">
-    <p>
-        Comment {{ forloop.counter }} by {{ comment.name }}
-        {{ comment.created }}
-    </p>
-    {{ comment.body | linebreaks }}
-    </div>
-
-    {% empty %}
-
-    there are no comments
-{% endfor %}
-
-
 {% block comment_form %}
-  {% if new_comments %}
+  {% if new_comment %}
     <h3>Your comment has been added</h3>
-    {% else %}
-    <form action="." method = "POST">
+  {% else %}
+  <form action="{{ post.get_absolute_url }}" method="POST">
         {{ comment_form.as_p }}
         {% csrf_token %}
-        <input type ="button" value="add comment">
+        <input type="submit" value="Add comment">  <!-- Changed input type to "submit" -->
     </form>
   {% endif %}
 {% endblock comment_form %}

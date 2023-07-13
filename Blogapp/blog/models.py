@@ -31,9 +31,9 @@ class Post(models.Model):
     # published = PublishedManager() #custom manager
     # objects = models.Manager() #the default manager
     
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super(Post,self).save()
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.title)
+    #     super(Post,self).save()
         
     class Meta:
         ordering = ('-publish',)
@@ -65,8 +65,3 @@ class Comments(models.Model): # comments model
     #     ordering = ('created',)
     def __str__(self) -> str:
         return 'Comments by {} on {}'.format(self.name, self.post)
-    
-    
-    
-
-
