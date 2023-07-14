@@ -13,6 +13,11 @@
         <h4>Total i wrote {% total_posts %} blogs in my application where {% published_posts %}</h4>
     </div>
 
+    <div class="latestposts">
+        <h5>Latest posts</h5>
+        {% show_latest_post %}
+    </div>
+
     {% block title %}{% endblock title %}
     <div id="content">
         {% block Content %}

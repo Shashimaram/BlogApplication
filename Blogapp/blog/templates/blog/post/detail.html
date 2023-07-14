@@ -1,9 +1,11 @@
 {% extends "blog/base.html" %}
+{% load blogtags %}
 
 {% block title %}
     {{ post.title }}
     <div class="body">
         {{ post.body }} {{ post.author }}
+        {{ post.body|markdown }}
     </div>
 {% endblock title %}
 
