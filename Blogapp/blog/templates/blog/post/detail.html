@@ -7,6 +7,16 @@
     </div>
 {% endblock title %}
 
+
+<h2>Similar Posts</h2>
+{% for post in similar_posts %}
+<p>
+    <a href="{{ post.get_absolute_url}}"></a>"
+</p>
+{% empty %}
+there are no similar_posts
+{% endfor %}
+
 {% block CommentsBlock %}
     {% with comments.count as total_comments %}
         {{ total_comments }} comment{{ total_comments|pluralize }}
@@ -38,3 +48,15 @@
     </form>
   {% endif %}
 {% endblock comment_form %}
+
+
+{% block similar_posts %}
+    <h2>Similar posts</h2>
+    {% for post in similar_posts %}
+    <p>
+        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </p>
+    {% empty %}
+    There are no similar posts yet.
+    {% endfor %}
+{% endblock similar_posts %}

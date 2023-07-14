@@ -1,4 +1,5 @@
 {% load static %}
+{% load blogtags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +10,7 @@
 <body>
     <div id="sidebar">
         <h2>My Blog app</h2>
+        <h4>Total i wrote {% total_posts %} blogs in my application where {% published_posts %}</h4>
     </div>
 
     {% block title %}{% endblock title %}
@@ -28,6 +30,12 @@
         {% block comment_form %}
           
         {% endblock comment_form %}
+    </div>
+
+    <div class="similarPost">
+        {% block similar_posts %}
+            
+        {% endblock similar_posts %}
     </div>
 
 </body>

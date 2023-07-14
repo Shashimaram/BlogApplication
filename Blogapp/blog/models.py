@@ -6,6 +6,7 @@ from django.utils import timezone
 from slugify import slugify
 from django.urls import reverse
 from django.db import transaction as _
+from taggit.managers import TaggableManager
 # Create your models here.
 
 class PublishedManager(models.Manager):     
@@ -26,14 +27,15 @@ class Post(models.Model):
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=10,choices=STATUS_CHOICES, default='draft')
+    status = models.CharField(max_length=10,choices=STATUS_CHOICES, default='published', blank=True)
+    tags = TaggableManager()
     # comment this custom manager if you want to display all blogs in admin panel
-    # published = PublishedManager() #custom manager
-    # objects = models.Manager() #the default manager
+    published = PublishedManager() #custom manager
+    objects = models.Manager() #the default manager
     
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(self.title)
-    #     super(Post,self).save()
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Post,self).save()
         
     class Meta:
         ordering = ('-publish',)
