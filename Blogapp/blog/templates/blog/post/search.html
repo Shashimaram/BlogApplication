@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+  Search
+{% endblock title %}
+
+{% block content %}
+  {% if query %}
+    <h1>Posts containing given {{ query }}</h1>
+    {% for result in results  %}
+        {{ result.title|linebreaks }}
+        {{ result.body|truncatewords:20 }}
+    {% empty %}
+        <p>Ther are no results for given query: {{ query }}</p>
+    {% endfor %}
+    <a href="{% url 'blog:search_url' %}">Search again</a>
+    <form action="." method="get">
+        {{ form.as_p }}
+        <input type="submit" value="Search">
+    </form>
+  {% endif %}
+{% endblock content %}

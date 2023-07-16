@@ -26,6 +26,9 @@ def create_fake_data():
         publish = fake.date_time_between(start_date='-1y', end_date='now', tzinfo=timezone.get_current_timezone())
         status = random.choice(['draft', 'published'])
         post = Post.objects.create(title=title, author=author, body=body, publish=publish, status=status)
+            # Add tags to the post
+        tags = [fake.word() for _ in range(random.randint(3, 5))]  # Generate 1-5 random tags
+        post.tags.add(*tags)
 
         # Create fake comments for each post
         for _ in range(3):
