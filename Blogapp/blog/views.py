@@ -12,7 +12,7 @@ from taggit.models import Tag
 # Create your views here.
 
 def post_list(request,tag_slug = None):
-    posts_list = Post.objects.all()
+    posts_list = Post.published.all()
     paginator = Paginator(posts_list,8)
     page = request.GET.get('page')
     tag = None
@@ -53,22 +53,37 @@ def post_detail(request, year, month, day, post):
     else:
         comment_form = CommentForm()
     # List of similar posts
-    similar_posts = post.tags.similar_objects()
+    try:
+        similar_posts = post.tags.similar_objects()
+        
+        return render(
+            request,
+            'blog/post/detail.html',
+            {
+                'post': post,
+                'comments': comments,
+                'new_comment': new_comment,
+                'comment_form': comment_form,
+                "similar_posts": similar_posts,
+            },
+        )
+    except Exception:
+        
+        return render(
+            request,
+            'blog/post/detail.html',
+            {
+                'post': post,
+                'comments': comments,
+                'new_comment': new_comment,
+                'comment_form': comment_form,
+                # "similar_posts": similar_posts,
+            },
+        )
     # post_tags_ids = post.tags.values_list('id', flat=True)
     # similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id = post.id)
     # similar_posts = similar_posts.annotate(same_tags = Count('tags')).order_by('-same_tags','-publish')[:4]
 
-    return render(
-        request,
-        'blog/post/detail.html',
-        {
-            'post': post,
-            'comments': comments,
-            'new_comment': new_comment,
-            'comment_form': comment_form,
-            "similar_posts": similar_posts,
-        },
-    )
 class PostListView(ListView):
     model = Post
     template_name = 'template.html'
