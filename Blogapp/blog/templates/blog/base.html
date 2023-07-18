@@ -4,49 +4,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{%static 'blog/css/styles.css' %}"
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="static/blog/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div id="sidebar">
-        <h2>My Blog app</h2>
-        <h4>Total i wrote {% total_posts %} blogs in my application where {% published_posts %}</h4>
+    <div id="navbar">
+        <h2 id="appname" class="navtext">My Blog app</h2>
+        <h4 id="postcount" class="navtext">Total blogs {% total_posts %}  published blogs{% published_posts %} </h4>
     </div>
 
+    {% block latestposts %}
     <div class="latestposts">
         <h5>Latest posts</h5>
-        {% show_latest_post %}
+        {% for post in latest_post %}
+          <a>{{ post.get_absolute_url }}{{ post.title }}</a>
+        {% endfor %}
     </div>
-
-    {% block title %}{% endblock title %}
-    <div id="content">
-        {% block Content %}
-        {% endblock Content %}
+    {% endblock latestposts %}
+    <div>
+        {% block title %}{% endblock title %}
     </div>
-
-    <div class="comments">
-        {% block CommentsBlock %}
-          
-        {% endblock CommentsBlock %}
-    </div>
-
-
-    <div class="commentform">
-        {% block comment_form %}
-          
-        {% endblock comment_form %}
-    </div>
-
-    <div class="similarPost">
-        {% block similar_posts %}
-            
-        {% endblock similar_posts %}
-    </div>
-
+        {% block Content %}{% endblock Content %}
+        {% block CommentsBlock %}{% endblock CommentsBlock %}
+        {% block comment_form %}{% endblock comment_form %}
+        {% block similar_posts %}{% endblock similar_posts %}
     <div class="rss_FEED">
-        <p><a href="{% url "blog:post_feed"%}">Subscribe to my rss feeds</a></p>
+        <p><a href="{{ 'blog:post_feed' }}">Subscribe to my rss feeds</a></p>
     </div>
-
 </body>
+<script>
+    $(document).on('submit', '#comment_form', function(e) {
+        e.preventDefault();
+        var postUrl = $(this).data('post-url'); // Get the post's absolute URL from the form's data attribute
+      
+        $.ajax({
+          type: 'POST',
+          url: postUrl, // Use the post's absolute URL in the AJAX request
+          data: {
+            name: $('#name').val(),
+            email: $('#email').val(),
+            body: $('#body').val(),
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+          },
+          success: function() {
+            // Handle success response
+          },
+          error: function(xhr, status, error) {
+            // Handle error response
+          }
+        });
+      });
+</script>
 </html>

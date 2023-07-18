@@ -1,0 +1,21 @@
+#navbar{
+    background-color: aqua;
+    height: 30px;
+    margin-top:1px;
+    margin-right: 5px;
+    margin-left: 1px;
+    display: flex;
+
+}
+
+#postcount{
+    font-size: 18px;
+    font-style: italic;
+    color: #000;
+}
+
+*{
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    border: border-box;
+}

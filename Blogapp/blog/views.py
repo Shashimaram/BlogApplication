@@ -7,6 +7,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import EmailPostForm,CommentForm,SearchForm
 from django.contrib.postgres.search import SearchVector
 from taggit.models import Tag
+import json
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -38,20 +40,36 @@ def post_detail(request, year, month, day, post):
         publish__month=month,
         publish__day=day,
     )
-    comments = post.comments.filter(active=True)   
+    comments = post.comments.filter(active=True)
     new_comment = None
+    
     if request.method == 'POST':
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
-            new_comment = comment_form.save(commit=False)  # Create an unsaved model instance to further modify the instance before saving to the database
+            name = request.POST['name']
+            email = request.POST['email']
+            body = request.POST['body']
+
+            new_comment = Comments(name=name, email=email, body=body)
             new_comment.post = post
             new_comment.save()
-        else:
-            # Handle the case when the form is not valid
-            # You can choose to display an error message or handle it in a different way
-            print(comment_form.errors)  # Print form errors for debugging purposes
-    else:
-        comment_form = CommentForm()
+            
+            response_data = {
+                'message': 'Comment saved successfully.',
+                'comment_id': new_comment.id,  # Include any relevant data
+                'total_comments':comments.count()  # Include any relevant data
+            }
+            return JsonResponse(response_data)
+            
+            # mentForm(data=request.POST)
+        # if comment_form.is_valid():
+        #     new_comment = comment_form.save(commit=False)  # Create an unsaved model instance to further modify the instance before saving to the database
+        #     new_comment.post = post
+        #     new_comment.save()
+        # else:
+        #     # Handle the case when the form is not valid
+        #     # You can choose to display an error message or handle it in a different way
+        #     print(comment_form.errors)  # Print form errors for debugging purposes
+    # else:
+    #     # comment_form = CommentForm()
     # List of similar posts
     try:
         similar_posts = post.tags.similar_objects()
@@ -63,7 +81,7 @@ def post_detail(request, year, month, day, post):
                 'post': post,
                 'comments': comments,
                 'new_comment': new_comment,
-                'comment_form': comment_form,
+                # 'comment_form': comment_form,
                 "similar_posts": similar_posts,
             },
         )
@@ -76,7 +94,7 @@ def post_detail(request, year, month, day, post):
                 'post': post,
                 'comments': comments,
                 'new_comment': new_comment,
-                'comment_form': comment_form,
+                # 'comment_form': comment_form,
                 # "similar_posts": similar_posts,
             },
         )

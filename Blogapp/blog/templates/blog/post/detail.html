@@ -1,64 +1,49 @@
 {% extends "blog/base.html" %}
 {% load blogtags %}
-
 {% block title %}
     {{ post.title }}
-    <div class="body">
-        {{ post.body }} {{ post.author }}
-        {{ post.body|markdown }}
-    </div>
+    <p>{{ post.author }}</p>
+    <p>{{ post.body}}</p>
 {% endblock title %}
 
 
-<h2>Similar Posts</h2>
-{% for post in similar_posts %}
-<p>
-    <a href="{{ post.get_absolute_url}}"></a>"
-</p>
-{% empty %}
-there are no similar_posts
-{% endfor %}
-
 {% block CommentsBlock %}
-    {% with comments.count as total_comments %}
-        {{ total_comments }} comment{{ total_comments|pluralize }}
-    {% endwith %}
+    <div class="comments">
+        {% with comments.count as total_comments %}
+            <p>{{ total_comments }} comment{{ total_comments|pluralize }}</p>
+        {% endwith %}
 
-    {% for comment in comments %}
-        <div class="info">
-            <p>
-                Comment {{ forloop.counter }} by {{ comment.name | linebreaks }}
-                        {{ comment.created }}
-            </p>
-            {{ comment.body | linebreaks }}
-        </div>
-    {% empty %}
-        There are no comments
-    {% endfor %}
-
+        {% for comment in comments %}
+            <div class="info">
+                <p>
+                    Comment {{ forloop.counter }} by {{ comment.name | linebreaks }}{{ comment.created }}
+                </p>
+                <p>{{ comment.body|safe }}</p>
+            </div>
+        {% empty %}
+            <p>There are no comments</p>
+        {% endfor %}
+    </div>
 {% endblock CommentsBlock %}
 
 
 {% block comment_form %}
-  {% if new_comment %}
-    <h3>Your comment has been added</h3>
-  {% else %}
-  <form action="{{ post.get_absolute_url }}" method="POST">
-        {{ comment_form.as_p }}
+    <form id="comment_form" data-post-url="{{ post.get_absolute_url }}">
         {% csrf_token %}
-        <input type="submit" value="Add comment">  <!-- Changed input type to "submit" -->
+        <input type="text" id="name" placeholder="name">
+        <input type="email" id="email" placeholder="email">
+        <input type="text" id="body" placeholder="body">
+        <input type="submit" id="commentsubmit" placeholder="add comment" value="submit">
     </form>
-  {% endif %}
 {% endblock comment_form %}
-
 
 {% block similar_posts %}
     <h2>Similar posts</h2>
     {% for post in similar_posts %}
-    <p>
-        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-    </p>
+        <p>
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </p>
     {% empty %}
-    There are no similar posts yet.
+        <p>There are no similar posts yet.</p>
     {% endfor %}
 {% endblock similar_posts %}
