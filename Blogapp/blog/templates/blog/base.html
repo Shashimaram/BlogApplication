@@ -4,32 +4,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{%static 'blog/css/styles.css' %}"
+    <link rel="stylesheet" href="{% static 'https://fonts.googleapis.com/css?family=Tangerine' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/styles.css' %}">
+    <link rel="stylesheet" href= "{% static 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div id="navbar">
-        <h2 id="appname" class="navtext">My Blog app</h2>
-        <h4 id="postcount" class="navtext">Total blogs {% total_posts %}  published blogs{% published_posts %} </h4>
+        <h2 id="appname" class="navtext">Blog app</h2>
+        <div id="count-container" class="navtext">
+          <ul class="countText">Total blogs: <span class="postnumber">{% total_posts %}</span> </ul>  
+          <ul class="countText">Published blogs: <span class="postnumber" >{% published_posts %}</span></ul>
+        </div>
     </div>
 
-    {% block latestposts %}
-    <div class="latestposts">
-        <h5>Latest posts</h5>
-        {% for post in latest_post %}
-          <a>{{ post.get_absolute_url }}{{ post.title }}</a>
-        {% endfor %}
-    </div>
-    {% endblock latestposts %}
-    <div>
-        {% block title %}{% endblock title %}
-    </div>
-        {% block Content %}{% endblock Content %}
+   
+      <div id="mainblock" class="divs">
+          <div class="title-content">
+            {% block title %}{% endblock title %}
+            {% block Content %}{% endblock Content %}
+          </div>
+          <div class="latestpost">
+            {% block latestposts %}
+            <h4>Latest Posts</h4>
+            <ul>
+              <li>{% latest_post1 %}</li>
+              <li>{% latest_post2  %}</li>
+              <li>{% latest_post3 %}</li>
+              <li>{% latest_post4 %}</li>
+              <li>{% latest_post5 %}</li>
+              {{show_latest_post}}
+            </ul>
+           
+            {% endblock latestposts %}
+          </div>
+      </div>
         {% block CommentsBlock %}{% endblock CommentsBlock %}
         {% block comment_form %}{% endblock comment_form %}
         {% block similar_posts %}{% endblock similar_posts %}
     <div class="rss_FEED">
+        <i class="fa fa-rss" ></i>
         <p><a href="{{ 'blog:post_feed' }}">Subscribe to my rss feeds</a></p>
     </div>
 </body>

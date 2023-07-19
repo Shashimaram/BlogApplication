@@ -15,12 +15,40 @@ def total_posts():
 def published_posts():
     return Post.published.count()
 
-# @register.inclusion_tag('blog/post/latest_post.html')
-# @register.simple_tag(name='show_latest_post')
-def show_latest_post(count = 5):
-    latest_posts = Post.published.order_by('-publish')[:count]
-    return{"latest_post": latest_posts}
-
 @register.filter(name='markdown')
 def markdown_format(text):
     return mark_safe(markdown.markdown(text))
+
+
+latest_posts=[x for x in Post.published.order_by('-publish')[:5]]
+
+latest_post_urls = [post.get_absolute_url() for post in latest_posts]
+
+
+
+
+@register.simple_tag
+def latest_post1():
+    return latest_posts[0]
+
+@register.simple_tag
+def latest_post2():
+    return latest_posts[1] 
+
+@register.simple_tag
+def latest_post3():
+    return latest_posts[2]
+
+@register.simple_tag
+def latest_post4():
+    return latest_posts[3]
+
+@register.simple_tag
+def latest_post5():
+    return latest_posts[4]
+
+@register.inclusion_tag('blog/post/latest_post.html')
+# @register.simple_tag(name='show_latest_post')
+def show_latest_post(count=1):
+    latest_posts = Post.published.order_by('-publish')[:count]
+    return {"latest_post_urls": [post.get_absolute_url() for post in latest_posts]}
