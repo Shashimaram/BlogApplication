@@ -1,0 +1,31 @@
+<!-- <div class="ppage">
+    <div class="page-cont">
+        {% if page.has_previous %}
+        <a href="?page={{ comment.previous_page_number }}"><button class="page-btn">PREVIOUS</button></a>
+    {% endif %}
+    <span class="page-num">{{ page.number }} of {{ comment.paginator.num_pages }}</span>
+    {% if page.has_next %}
+        <a href="?page={{ comment.next_page_number }}"><button class="page-btn">NEXT</button></a> 
+    {% endif %}
+    </div>
+</div><!-- Display comments -->
+{% for comment in comments %}
+    <!-- Your comment rendering code here -->
+{% endfor %} -->
+
+<!-- Display pagination controls -->
+<div class="comment-pagination">
+        {% if comments.has_previous %}
+            <button> <a href="?page=1">&laquo; first</a></button>
+            <button>  <a href="?page={{ comments.previous_page_number }}">previous</a></button>
+        {% endif %}
+            {{ comments.name }}
+
+        <button class="current">Total Comments {{ comments.number }} of {{ comments.paginator.num_pages }}</button>
+
+        {% if comments.has_next %}
+            <button><a href="?page={{ comments.next_page_number }}">next</a></button>
+            <button> <a href="?page={{ comments.paginator.num_pages }}">last &raquo;</a></button>
+        {% endif %}
+</div>
+

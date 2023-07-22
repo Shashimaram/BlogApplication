@@ -9,58 +9,64 @@ from django.db import transaction as _
 from taggit.managers import TaggableManager
 # Create your models here.
 
-class PublishedManager(models.Manager):     
+
+class PublishedManager(models.Manager):
     # custom Manager class Post.published.get() can be used to get published posts
     def get_queryset(self) -> QuerySet:
-        return super(PublishedManager,self).get_queryset().filter(status = 'published')
+        return super(PublishedManager, self).get_queryset().filter(status='published')
 
 
 class Post(models.Model):
     STATUS_CHOICES = (
-        ('draft','Draft'),
-        ('published','Published'),
+        ('draft', 'Draft'),
+        ('published', 'Published'),
     )
-    title = models.CharField(max_length=50)
-    slug = models.SlugField(max_length = 50,unique_for_date= 'publish',blank=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    body = models.TextField(max_length=200, blank=True, null=True)
+    title = models.CharField(max_length=50,default=str)
+    slug = models.SlugField(
+        max_length=50, unique_for_date='publish', blank=True,default=str)
+    author = models.ForeignKey(User, on_delete=models.CASCADE,default=str)
+    body = models.TextField(max_length=200, blank=True, null=True,default=str)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=10,choices=STATUS_CHOICES, default='published', blank=True)
+    status = models.CharField(
+        max_length=10, choices=STATUS_CHOICES, default='published', blank=True)
     tags = TaggableManager()
     # comment this custom manager if you want to display all blogs in admin panel
-    published = PublishedManager() #custom manager
-    objects = models.Manager() #the default manager
-    
+    published = PublishedManager()  # custom manager
+    objects = models.Manager()  # the default manager
+
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super(Post,self).save()
-        
+        self.slug = slugify(self.title)  # Use the slugify function from python-slugify
+        super(Post, self).save(*args, **kwargs)
+
     class Meta:
         ordering = ('-publish',)
-        verbose_name= 'post'
-        verbose_name_plural ="Posts" 
+        verbose_name = 'post'
+        verbose_name_plural = "Posts"
+
     def __str__(self) -> str:
         return self.title
-    
+
     def get_absolute_url(self):
         return reverse("blog:post_detail", args=[self.publish.year,
-                                                self.publish.month, 
-                                                self.publish.day,
-                                                self.slug])
-    
-    
-class Comments(models.Model): # comments model 
+                                                 self.publish.month,
+                                                 self.publish.day,
+                                                 self.slug])
+
+
+class Comments(models.Model):  # comments model
     #  each post can contain multiple comments
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments') # one to many relationship
+    # one to many relationship
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=50)
     email = models.EmailField()
     body = models.TextField()
-    created= models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
-    
+
     # class Meta:
     #     # db_table = 'Post_Comments'
     #     # managed = True

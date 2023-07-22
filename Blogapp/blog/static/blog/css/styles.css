@@ -1,6 +1,6 @@
 /* Navbar */
 #navbar{
-    background-color:#05668D;
+    background-color:#054b66;
     height: 35px;
     position:sticky;
     display: flex;
@@ -24,7 +24,7 @@
 }
 .countText{
     font-size: 12px;
-    font-family: 'Tangerine', Times, serif;
+    font-family: 'Times New Roman', Times, serif';
 }
 *{
     margin: 0;
@@ -33,6 +33,7 @@
 .postnumber{
     color: #F3EEC3;
     font-size:12px;
+    margin-right: 40px;
 }
 
 /* main block */
@@ -41,26 +42,30 @@
     display: flex;
     flex-direction: row;
     flex:initial;
+    margin-bottom: 40px;
+    padding-bottom: 50px;
    
 }
+
 .title-content{
     /* flex: 7; */
-    flex-grow: 3;
+    flex-grow: 1;
     margin-left: 60px;
     /* margin-right: 60px; */
-    /* padding-right: 100px; */
+    padding-right: 100px;
     background-color: #fbfbfb;
     /* text-align: center; */
 }
+
 .latestpost{
     flex-grow:1;
     background-color: rgb(250, 246, 246);
+    width: 30%;
 }
 
 .nameblock{
     text-align: center;
 }
-
 
 div.title{
     margin-top: 4px;
@@ -70,22 +75,26 @@ div.title{
     padding: 10px 10px 5px 10px;
     
 }
+
 #titlelink{
     text-decoration: none;
-    font-family: 'Tangerine', Times, serif;
-    color:#2c3e49;
+    font-family:'Times New Roman', Times, serif';
+    color: #2c3e49;
 }
+
 #titlelink:hover{
     color: cadetblue;   
 }
+
 .tags{
     color: #493a3e;
     font-size: 12px;
     padding-top: 1px;
     padding-bottom: 5px;
     margin-left: 60px;
-    font-family: 'Tangerine', Times, serif;
+    font-family: 'Times New Roman', Times, serif';
 }
+
 #body{
     font-family: 'Courier New', Courier, monospace;
     font-size: 8px;
@@ -111,7 +120,6 @@ div.title{
     border-radius:15px;
 }
 
-
 .page-cont{
     display: flex;
     /* justify-content: space-evenly; */
@@ -120,3 +128,79 @@ div.title{
     margin-left: 200px;
     margin-right: 200px;
 }
+
+/* Detail.html post full edits */
+
+.post-block{
+    font-family:  'Times New Roman', Times, serif';
+    color: rgb(31, 27, 31);
+}
+/* 
+.detail-post{
+    display: flex;
+    flex-direction: column;
+} */
+
+#dt-title{
+    font-size: 70px;
+    padding-top: 50px;
+    padding-left: 50px;
+}
+
+#dt-author{
+    padding-top: 20px;
+    padding-left: 60px;
+}
+
+#dt-body{
+    padding-left: 60px;
+    padding-right: 60px;
+    font-size: large;
+    padding-top: 20px;
+
+}
+
+/* Comments display section */
+
+.comment-section{
+    margin-top: 20px;
+    margin-left: 60px;
+    margin-right: 320px;
+    display: flex;
+    flex-direction: column;
+    /* text-align: center; */
+    background-color: #f1eaec;
+}
+
+.comment-name{
+    margin-left: 30px;
+    font-size: 19px;
+    
+}
+
+.comment-date{
+    margin-left: 450px;
+    font-size: smaller;
+}
+
+.comment-body{
+    font-family:'Tangerine', Times, serif;
+    font-size: small;
+    padding-left: 30px;
+    padding-top: 20px;
+}
+
+
+.comment-pagination{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+#comments-heading{
+    margin-top: 5px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
+
+

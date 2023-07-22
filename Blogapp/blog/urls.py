@@ -10,4 +10,6 @@ urlpatterns = [
     path('', views.post_list, name='post_list'),
     path('feed/',LatestPostFeed(),name = 'post_feed'),
     path('search/',views.post_search, name = 'search_url'),
+    path('addnewpost',views.add_new_post,name = 'addpost'),
+    path('userchecks',views.checkingUserExists,name = 'user_checks')
 ]

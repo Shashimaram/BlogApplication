@@ -1,13 +1,29 @@
 {% extends "blog/base.html" %}
 {% load blogtags %}
 {% block title %}
-    {{ post.title }}
-    <p>{{ post.author }}</p>
-    <p>{{ post.body}}</p>
+    <div class="detail-post">
+        <p  class="post-block" id="dt-title">{{ post.title }}</p>
+        <p class="post-block" id="dt-author"> Written by:{{ post.author }}</p>
+        <p  class="post-block" id="dt-body">{{ post.body}}</p>
+    </div>
 {% endblock title %}
 
 
 {% block CommentsBlock %}
+
+    <div class="comment-section">
+        <p id="comments-heading">Comments: </p>
+        {% for c in comments  %}
+        <div class="comment-name"> Written by {{ c.name}} <span class="comment-date">{{ c.created }}</span></div>
+        <div class="comment-body">{{ c.body }}</div>
+        {% endfor %}
+        {% include "blog/post/commentPaginattion.html" %}
+    </div>
+
+{% endblock CommentsBlock %}
+
+
+{% comment %}
     <div class="comments">
         {% with comments.count as total_comments %}
             <p>{{ total_comments }} comment{{ total_comments|pluralize }}</p>
@@ -24,7 +40,7 @@
             <p>There are no comments</p>
         {% endfor %}
     </div>
-{% endblock CommentsBlock %}
+{% endcomment %}
 
 
 {% block comment_form %}
