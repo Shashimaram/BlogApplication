@@ -1,23 +1,35 @@
 {% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Blog App</title>
+  <link rel="stylesheet" href="{% static 'blog/css/newpost.css' %}">
+
+</head>
 
 <body>
-    <form method="post" action="." name='NewForm' class="postCreateForm" action="http://127.0.0.1:8000/userchecks">
-        {% csrf_token %}
-        <input type="text" placeholder="entry your name" id="author">
-        <p id="user-result"></p>
-        <input type="text" placeholder="title of your blog" id="blogTitle">
-        <p></p>
-        <input type="text" placeholder="body" id="blogbody">
-        <p></p>
-        <input type="text" placeholder="tags must be coma saperated values" id="blogtags">
-        <p></p>
-        <input type="submit" id="postsubmit" placeholder="Submit post" value="submit">
-        <p id="final-result"></p>
+    <!-- Plain Header -->
+    <header>
+        <h1>My Blog</h1>
+    </header>
 
-    </form>
+    <!-- Centered Form -->
+    <div class="form-container">
+        <form id="editForm" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit Blog</button>
+        </form>
+        <div>
+            <p id="responseMessage"></p>
+        </div>
+    </div>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
+
+</html>
+
+<!-- <script>
     "undefined" == typeof jQuery.migrateMute && (jQuery.migrateMute = !0);
     $(document).ready(function () {
         $('#author').on('blur', function () {
@@ -57,7 +69,7 @@
                     title: $('#blogtitle').val(),
                     body: $('#blogbody').val(),
                     tags: $('#blogtags').val(),
-                    <!-- //'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val() -->
+                    'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val()
                      csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
                 },
                 success: function (data) {
@@ -73,4 +85,35 @@
             });
         });
     })        
+</script> -->
+<!-- Your JavaScript code -->
+<script src="{% static 'blog/js/jquery.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#editForm").on('submit', function (e) {
+            e.preventDefault();
+            var form_data = $(this).serialize();
+
+            $.ajax({
+                type: "POST",
+                url: 'http://127.0.0.1:8000/addnewpost',
+                data: form_data,
+                success: function (data) {
+                    // Parse the JSON response data
+                    var response = JSON.parse(data);
+
+                    // Check the value of the 'message' key
+                    if (response.message === 'True') {
+                        $("#responseMessage").text("blog created successfully!");
+                    } else if (response.message === 'False') {
+                        $("#responseMessage").text("please enter valid Data");
+                    }
+                },
+                error: function (error) {
+                    $("#responseMessage").text("Error: " + error.responseText);
+                }
+            });
+        });
+    });
 </script>

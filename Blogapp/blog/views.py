@@ -11,6 +11,7 @@ from taggit.models import Tag
 import json
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -148,21 +149,38 @@ def post_search(request):
                                                      'form': form})
 
 
-def add_new_post(request):
-    form = Postform()
-    if request.method == 'POST':
-        author_ = request.user
-        body = request.POST.get('body', '')
-        tags = request.POST.get('tags', '')
-        title = request.POST.get('title', '')
+# def add_new_post(request):
+#     form = Postform()
+#     if request.method == 'POST':
+#         author_ = request.user
+#         body = request.POST.get('body', '')
+#         tags = request.POST.get('tags', '')
+#         title = request.POST.get('title', '')
         
-        new_post = Post(author=author_, body=body, tags=tags, title=title)
-        new_post.save()
-        return JsonResponse({'message': 'True'})
+#         new_post = Post(author=author_, body=body, tags=tags, title=title)
+#         new_post.save()
+#         return JsonResponse({'message': 'True'})
 
+#     else:
+#         return render(request, 'blog/post/01new_post.html')
+
+
+
+@login_required
+def add_new_post(request):
+    if request.method == 'POST':
+        form = Postform(request.POST)
+        if form.is_valid():
+            # Set the author field to the current logged-in user
+            new_post = form.save(commit=False)
+            new_post.author = request.user
+            new_post.save()
+            return JsonResponse({'message': 'True'})
+        else:
+            return JsonResponse({'message': 'False'})
     else:
-        return render(request, 'blog/post/01new_post.html')
-
+        form = Postform()
+    return render(request, 'blog/post/01new_post.html', {'form': form})
 
 def checkingUserExists(request):
 

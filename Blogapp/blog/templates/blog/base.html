@@ -6,6 +6,9 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="{% static 'blog/css/styles.css' %}" />
+  <link rel="stylesheet" href="{% static 'blog/css/bottom.css' %}">
+  <link rel="stylesheet" href="{% static 'blog/css/comments.css' %}">
+  <link rel="stylesheet" href="{% static 'blog/css/newpost.css' %}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script> src="{% static 'blog/js/jquery.js' %}"</script>
 </head>
@@ -22,6 +25,9 @@
         Published blogs:
         <span class="postnumber">{% published_posts %}</span>
       </ul>
+    </div>
+    <div id="newpostLink">
+      <a href={% url 'blog:addpost' %}>Create New Post</a>
     </div>
   </div>
 
@@ -47,9 +53,6 @@
   </div>
   {% block CommentsBlock %}{% endblock CommentsBlock %}
   {% block comment_form%}{% endblock comment_form %}
-  {% block addnewpost %}
-
-  {% endblock addnewpost %}
   {% block similar_posts %}{% endblock similar_posts %}
   <div class="rss_FEED">
     <i class="fa fa-rss"></i>

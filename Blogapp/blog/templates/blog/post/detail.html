@@ -1,4 +1,7 @@
 {% extends "blog/base.html" %}
+{% load static %}
+
+
 {% load blogtags %}
 {% block title %}
     <div class="detail-post">
@@ -52,14 +55,15 @@
         <input type="submit" id="commentsubmit" placeholder="add comment" value="submit">
     </form>
 {% endblock comment_form %}
-
 {% block similar_posts %}
-    <h2>Similar posts</h2>
-    {% for post in similar_posts %}
-        <p>
-            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-        </p>
-    {% empty %}
-        <p>There are no similar posts yet.</p>
-    {% endfor %}
+    <div class="similar-posts-container">
+        <h2>Similar posts</h2>
+        {% for post in similar_posts %}
+            <p>
+                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+            </p>
+        {% empty %}
+            <p>There are no similar posts yet.</p>
+        {% endfor %}
+    </div>
 {% endblock similar_posts %}

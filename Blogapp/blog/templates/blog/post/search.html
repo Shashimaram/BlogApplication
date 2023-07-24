@@ -1,5 +1,3 @@
-{% extends "blog/base.html" %}
-
 {% block title %}
   Search
 {% endblock title %}
@@ -11,7 +9,7 @@
         {{ result.title|linebreaks }}
         {{ result.body|truncatewords:20 }}
     {% empty %}
-        <p>Ther are no results for given query: {{ query }}</p>
+        <p>There are no results for the given query: {{ query }}</p>  {# Corrected the spelling of "There" #}
     {% endfor %}
     <a href="{% url 'blog:search_url' %}">Search again</a>
     <form action="." method="get">

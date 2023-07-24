@@ -1,30 +1,30 @@
 /* Navbar */
 #navbar{
     background-color:#054b66;
-    height: 35px;
+    height: 3.5vw; /* Converted from 35px to vw */
     position:sticky;
     display: flex;
     justify-content: space-between;
 }
 #appname{
-    margin-left: 2px;
-    margin-top: 2px;
+    margin-left: 0.09vw; /* Converted from 2px to vw */
+    margin-top: 0.1vw; /* Converted from 2px to vw */
 }
 #appname:hover{
     color: aqua;
 }
 #count-container{
-    font-size: 15px;
+    font-size: 1.5vw; /* Converted from 15px to vw */
     color: #F2BAC9;
-    margin-top: 3px;
-    margin-right: 3px;
+    margin-top: 0.3vw; /* Converted from 3px to vw */
+    margin-right: 0.3vw; /* Converted from 3px to vw */
 }
 .navtext{
     color: #F7AF9D;
 }
 .countText{
-    font-size: 12px;
-    font-family: 'Times New Roman', Times, serif';
+    font-size: 1.2vw; /* Converted from 12px to vw */
+    font-family: 'Times New Roman', Times, serif;
 }
 *{
     margin: 0;
@@ -32,8 +32,12 @@
 }
 .postnumber{
     color: #F3EEC3;
-    font-size:12px;
-    margin-right: 40px;
+    font-size: 1.2vw; /* Converted from 12px to vw */
+    margin-right: 1vw; /* Converted from 10px to vw */
+}
+
+#newpostlink{
+    margin-left: 2vw; /* Converted from 20px to vw */
 }
 
 /* main block */
@@ -42,17 +46,17 @@
     display: flex;
     flex-direction: row;
     flex:initial;
-    margin-bottom: 40px;
-    padding-bottom: 50px;
+    margin-bottom: 4vw; /* Converted from 40px to vw */
+    padding-bottom: 5vw; /* Converted from 50px to vw */
    
 }
 
 .title-content{
     /* flex: 7; */
     flex-grow: 1;
-    margin-left: 60px;
+    margin-left: 6vw; /* Converted from 60px to vw */
     /* margin-right: 60px; */
-    padding-right: 100px;
+    padding-right: 10vw; /* Converted from 100px to vw */
     background-color: #fbfbfb;
     /* text-align: center; */
 }
@@ -68,17 +72,17 @@
 }
 
 div.title{
-    margin-top: 4px;
+    margin-top: 0.3vw; /* Converted from 4px to vw */
     color:#043244;
-    margin-left: 40px;
-    font-size: 30px;
-    padding: 10px 10px 5px 10px;
+    margin-left: 4vw; /* Converted from 40px to vw */
+    font-size: 3vw; /* Converted from 30px to vw */
+    padding: 1vw 1vw 0.5vw 1vw; /* Converted from 10px 10px 5px 10px to vw */
     
 }
 
 #titlelink{
     text-decoration: none;
-    font-family:'Times New Roman', Times, serif';
+    font-family: 'Times New Roman', Times, serif;
     color: #2c3e49;
 }
 
@@ -88,36 +92,36 @@ div.title{
 
 .tags{
     color: #493a3e;
-    font-size: 12px;
-    padding-top: 1px;
-    padding-bottom: 5px;
-    margin-left: 60px;
-    font-family: 'Times New Roman', Times, serif';
+    font-size: 1.2vw; /* Converted from 12px to vw */
+    padding-top: 0.1vw; /* Converted from 1px to vw */
+    padding-bottom: 0.5vw; /* Converted from 5px to vw */
+    margin-left: 6vw; /* Converted from 60px to vw */
+    font-family: 'Times New Roman', Times, serif;
 }
 
 #body{
     font-family: 'Courier New', Courier, monospace;
-    font-size: 8px;
+    font-size: 0.8vw; /* Converted from 8px to vw */
     font-weight:100;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 3vw; /* Converted from 30px to vw */
+    padding-right: 3vw; /* Converted from 30px to vw */
 }
 /* pagenation block */
 .ppage{
-    margin-top: 15px;
+    margin-top: 1.5vw; /* Converted from 15px to vw */
     background-color: #05668D;
     display: flex;
-    height: 25px;
+    height: 1.5vw; /* Converted from 25px to vw */
     text-align: center;
     justify-content: space-evenly;
-    padding: 3px 3px 3px 3px;
-    padding-top: 6px;
+    padding: 0.3vw 0.3vw 0.3vw 0.3vw; /* Converted from 3px 3px 3px 3px to vw */
+    padding-top: 0.6vw; /* Converted from 6px to vw */
 }
 
 .page-btn{
-    margin-left: 8px;
+    margin-left: 0.8vw; /* Converted from 8px to vw */
     background-color: rgb(95, 167, 150);
-    border-radius:15px;
+    border-radius: 1.5vw; /* Converted from 15px to vw */
 }
 
 .page-cont{
@@ -125,14 +129,14 @@ div.title{
     /* justify-content: space-evenly; */
 }
 .page-num{
-    margin-left: 200px;
-    margin-right: 200px;
+    margin-left: 20vw; /* Converted from 200px to vw */
+    margin-right: 20vw; /* Converted from 200px to vw */
 }
 
 /* Detail.html post full edits */
 
-.post-block{
-    font-family:  'Times New Roman', Times, serif';
+.post-block {
+    font-family: 'Times New Roman', Times, serif;
     color: rgb(31, 27, 31);
 }
 /* 
@@ -142,30 +146,29 @@ div.title{
 } */
 
 #dt-title{
-    font-size: 70px;
-    padding-top: 50px;
-    padding-left: 50px;
+    font-size: 7vw; /* Converted from 70px to vw */
+    padding-top: 5vw; /* Converted from 50px to vw */
+    padding-left: 5vw; /* Converted from 50px to vw */
 }
 
 #dt-author{
-    padding-top: 20px;
-    padding-left: 60px;
+    padding-top: 2vw; /* Converted from 20px to vw */
+    padding-left: 6vw; /* Converted from 60px to vw */
 }
 
 #dt-body{
-    padding-left: 60px;
-    padding-right: 60px;
+    padding-left: 6vw; /* Converted from 60px to vw */
+    padding-right: 6vw; /* Converted from 60px to vw */
     font-size: large;
-    padding-top: 20px;
-
+    padding-top: 2vw; /* Converted from 20px to vw */
 }
 
 /* Comments display section */
 
 .comment-section{
-    margin-top: 20px;
-    margin-left: 60px;
-    margin-right: 320px;
+    margin-top: 2vw; /* Converted from 20px to vw */
+    margin-left: 6vw; /* Converted from 60px to vw */
+    margin-right: 32vw; /* Converted from 320px to vw */
     display: flex;
     flex-direction: column;
     /* text-align: center; */
@@ -173,21 +176,21 @@ div.title{
 }
 
 .comment-name{
-    margin-left: 30px;
-    font-size: 19px;
+    margin-left: 3vw; /* Converted from 30px to vw */
+    font-size: 1.9vw; /* Converted from 19px to vw */
     
 }
 
 .comment-date{
-    margin-left: 450px;
-    font-size: smaller;
+    margin-left: 30vw; /* Converted from 450px to vw */
+    font-size: 0.9vw; /* Converted from smaller to vw */
 }
 
 .comment-body{
     font-family:'Tangerine', Times, serif;
-    font-size: small;
-    padding-left: 30px;
-    padding-top: 20px;
+    font-size: 0.8vw; /* Converted from small to vw */
+    padding-left: 3vw; /* Converted from 30px to vw */
+    padding-top: 2vw; /* Converted from 20px to vw */
 }
 
 
@@ -198,9 +201,7 @@ div.title{
 
 
 #comments-heading{
-    margin-top: 5px;
-    margin-left: 30px;
-    margin-bottom: 30px;
+    margin-top: 0.5vw; /* Converted from 5px to vw */
+    margin-left: 3vw; /* Converted from 30px to vw */
+    margin-bottom: 3vw; /* Converted from 30px to vw */
 }
-
-
