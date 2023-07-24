@@ -1,0 +1,12 @@
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: osx-arm64
+django=4.1=py311hca03da5_0
+django-taggit=4.0.0=pypi_0
+faker=18.9.0=py311hca03da5_0
+oauthlib=3.2.2=pypi_0
+python-slugify=8.0.1=pypi_0
+social-auth-app-django=5.2.0=pypi_0
+social-auth-core=4.4.2=pypi_0
+sqlalchemy=2.0.16=pypi_0
+sqlite=3.41.2=h80987f9_0
