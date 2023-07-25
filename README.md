@@ -30,11 +30,11 @@ pip install -r requirements.txt
 
 python3 manage.py runserver
 
-4.Add fake data 
+4. Add fake data 
 
-python3 manage.py shell
-from faker import create_fake_data
-create_fake_data()
+- python3 manage.py shell
+- from faker import create_fake_data
+- create_fake_data()
 
 ## Usage:
 
