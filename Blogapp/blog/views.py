@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+# lists all the posts in the db at the limit of 8 pages per page
 def post_list(request, tag_slug=None):
     posts_list = Post.published.all()
     paginator = Paginator(posts_list, 8)
