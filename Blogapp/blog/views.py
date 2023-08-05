@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, TemplateView, DeleteView, View
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import EmailPostForm, CommentForm, SearchForm, Postform
-from django.contrib.postgres.search import SearchVector
+# from django.contrib.postgres.search import SearchVector
 from taggit.models import Tag
 import json
 from django.http import JsonResponse
@@ -135,19 +135,19 @@ def Post_share(request, post_id):
     return render(request, 'blog/post/share.html', {'post': post, 'form': form})
 
 
-def post_search(request):
-    form = SearchForm()
-    query = None
-    results = []
-    if 'query' in request.GET:
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            query = form.cleaned_data(query)
-            results = Post.objects.annotate(search=SearchVector(
-                'title', 'body'),).filter(search=query)
-    return render(request, 'blog/post/search.html', {'query': query,
-                                                     'results': results,
-                                                     'form': form})
+# def post_search(request):
+#     form = SearchForm()
+#     query = None
+#     results = []
+#     if 'query' in request.GET:
+#         form = SearchForm(request.GET)
+#         if form.is_valid():
+#             query = form.cleaned_data(query)
+#             results = Post.objects.annotate(search=SearchVector(
+#                 'title', 'body'),).filter(search=query)
+#     return render(request, 'blog/post/search.html', {'query': query,
+#                                                      'results': results,
+#                                                      'form': form})
 
 
 # def add_new_post(request):
