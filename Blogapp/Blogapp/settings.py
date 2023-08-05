@@ -89,14 +89,20 @@ WSGI_APPLICATION = 'Blogapp.wsgi.application'
 #     }
 # }
 
-DATABASES={
-   'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'postgres',
-        'USER':'postgres',
-        'PASSWORD':'1234',
-        
-        
+# DATABASES={
+#    'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME':'postgres',
+#         'USER':'postgres',
+#         'PASSWORD':'1234',
+#     }
+# }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  # Assuming BASE_DIR is defined in your settings
     }
 }
 
