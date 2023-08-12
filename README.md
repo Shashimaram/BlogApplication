@@ -5,11 +5,11 @@
 "My Blog" is a simple blog application developed as part of my learning journey with Django. It allows users to publish and read blog posts, add comments, and view similar posts filtered by tags. 
 
 ### Technologies Used: 
-> Python
-> Django
-> HTML
-> CSS
-> jQuery
+- Python
+- Django
+- HTML
+- CSS
+- jQuery
 
 
 ## Features
