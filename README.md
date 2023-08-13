@@ -63,11 +63,12 @@ To clone and run the "My Blog" app locally, follow these steps:
     Note: replace username with your Docker username
 
 - To run Image:
+  
+  `docker run -p 8000:8000 -it imageid`
 
-    `docker run -it imageid` or  `docker run -p 8000:8000 -it imageid`
+    Note: replace imageid,
 
-    Note: replace imageid, 
-  - run ``~docker images`` list all images
+- run ``~docker images`` list all images
 
 - to view this on browser: 
 
