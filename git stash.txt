@@ -1,0 +1,157 @@
+# A Comprehensive Guide to git stash
+
+**git stash** is a powerful command that temporarily shelves (or stashes) your uncommitted local changes, allowing you to get a clean working directory. This is incredibly useful when you need to quickly switch context to another branch to work on something else, but you're not yet ready to commit your current work.
+
+## 1. The Core Concept: What and Why?
+
+- **What is stashed?** Changes that are not yet committed. This includes modifications to tracked files and, optionally, new untracked files.
+- **Why stash?** To save your work-in-progress safely without making a "messy" or incomplete commit. It cleans your working directory so you can pull updates, switch branches, or fix an urgent bug.
+- **Where is it stored?** The stash is a "stack" of saved states stored for the entire repository. It is not tied to a specific branch. You can view stashes created on one branch while checked out to another.
+
+## 2. The Basic Stashing Workflow
+
+This is the most common sequence of commands you will use.
+
+### `git stash` or `git stash push`
+Saves your modified, tracked files to the stash list and cleans your working directory.
+
+```powershell
+# You have modified files
+PS> git status
+On branch feature-A
+Changes not staged for commit:
+        modified:   app.js
+
+# Stash the changes
+PS> git stash
+Saved working directory and index state WIP on feature-A: 123abcd Initial commit
+
+# Your working directory is now clean
+PS> git status
+On branch feature-A
+nothing to commit, working tree clean
+```
+
+### `git stash list`
+View all the change sets currently stored in your stash. The most recent one is at the top, `stash@{0}`.
+
+```powershell
+PS> git stash list
+stash@{0}: WIP on feature-A: 123abcd Initial commit
+stash@{1}: WIP on hotfix-B: 456def Fix critical bug
+```
+
+### `git stash pop`
+Applies the most recent stash (`stash@{0}`) to your working directory and removes it from the stash list. This is the command you'll use most often to resume your work.
+
+```powershell
+# Applies stash@{0} and then deletes it from the list
+PS> git stash pop
+```
+
+### `git stash apply`
+This is similar to pop, but it applies the changes without removing the stash from the list. This is useful if you want to apply the same set of changes to multiple branches.
+
+```powershell
+# Applies stash@{0} but leaves it in the stash list
+PS> git stash apply
+```
+
+## 3. Handling Untracked and Ignored Files
+
+By default, `git stash` only saves changes to files that are already tracked by Git.
+
+### To include untracked files:
+Use the `--include-untracked` or `-u` flag. This is necessary for newly created files that haven't been staged yet.
+
+```powershell
+# Stash modified files AND new, untracked files
+PS> git stash -u
+```
+
+### To include everything (even ignored files):
+Use the `--all` or `-a` flag. This will stash changes to tracked files, untracked files, and files that match patterns in your `.gitignore`. Use this with caution.
+
+```powershell
+# Stash absolutely everything
+PS> git stash -a
+```
+
+## 4. Advanced Usage and Specific Scenarios
+
+### Applying a Specific Stash
+If you have multiple items in your stash list, you can pop or apply a specific one by referencing its index.
+
+```powershell
+# Apply the second stash in the list (stash@{1})
+PS> git stash apply 'stash@{1}'
+```
+
+**PowerShell Pro Tip:** As we discovered, PowerShell interprets `{}` characters. Always wrap the stash reference in single quotes (`'stash@{1}'`) to ensure the command works correctly.
+
+### Viewing Stash Contents
+Before applying a stash, you can see what changes it contains using `git stash show`.
+
+```powershell
+# See a summary of which files changed in the latest stash
+PS> git stash show
+
+# See the full diff of the changes (like git diff)
+PS> git stash show -p 'stash@{0}'
+```
+
+### Handling Conflicts
+If you try to pop or apply a stash and it conflicts with your current code, Git will stop and report a merge conflict. Crucially, if you used `git stash pop`, the stash will not be dropped. This is a safety feature to prevent you from losing your work. Your workflow should be:
+
+1. Resolve the merge conflicts in your editor.
+2. Stage the resolved files (`git add .`).
+3. Commit the changes (`git commit`).
+4. Manually remove the stash now that it's been successfully applied: `git stash drop 'stash@{0}'`.
+
+### Reverting a git stash apply
+Since apply doesn't delete the stash, you might want to undo the changes it made to your working directory. You can do this by cleaning your working directory.
+
+```powershell
+# 1. (Safety First) Do a "dry run" to see what would be deleted
+PS> git clean -n -d
+
+# 2. If the list looks correct, permanently delete the untracked files/dirs
+PS> git clean -fd
+
+# 3. If any tracked files were modified, reset them
+PS> git restore .
+```
+
+## 5. The "Plumbing" Command: `git stash create`
+
+This is a lower-level command that offers more control, often used in scripts.
+
+`git stash create` creates a stash object from your current changes but does not add it to the stash list and does not clean your working directory.
+
+It simply returns the unique hash (ID) of the stash object it created.
+
+```powershell
+PS> git stash create
+e8e42e4e0828019a16f6b553c3f8409b30c9d721
+```
+
+You can then use this hash to apply the stash later, even though it never appeared in `git stash list`. This is useful for custom workflows where you want to manage stashes outside the standard stack.
+
+## Summary of Key Commands
+
+| Command | Description |
+|---------|-------------|
+| `git stash` | Save current changes to stash |
+| `git stash push` | Same as `git stash` |
+| `git stash list` | Show all stashes |
+| `git stash pop` | Apply and remove most recent stash |
+| `git stash apply` | Apply stash without removing it |
+| `git stash show` | Show contents of stash |
+| `git stash drop` | Remove specific stash |
+| `git stash create` | Create stash object without adding to list |
+| `git stash -u` | Include untracked files |
+| `git stash -a` | Include all files (even ignored) |
+
+---
+
+**I hope this detailed summary serves as a great resource for you. Mastering these commands will make your daily Git workflow much smoother!**
